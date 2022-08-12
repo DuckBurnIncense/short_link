@@ -1,0 +1,12 @@
+###
+
+GET http://192.168.1.99:23456/?p=get&s=123456
+
+### 
+
+POST http://192.168.1.99:23456/?p=set
+
+{
+	"suffix": "tbili\\`'\"",
+	"link": "//t.bilibili.com/"
+}
