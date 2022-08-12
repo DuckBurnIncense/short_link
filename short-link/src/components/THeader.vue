@@ -56,6 +56,7 @@
 				mark {
 					background-color: transparent;
 					color: black;
+					border-radius: 5px;
 				}
 			}
 		}
