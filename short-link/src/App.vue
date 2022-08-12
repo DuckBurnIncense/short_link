@@ -50,6 +50,8 @@
     }
     * {
         box-sizing: border-box;
+        word-wrap: break-word;
+        word-break: break-all;
     }
     .cl-red {
         color: red;
@@ -62,5 +64,8 @@
         padding: 3px;
         border-radius: 2px;
         margin: 0 2px;
+    }
+    .cur-pot {
+        cursor: pointer;
     }
 </style>
