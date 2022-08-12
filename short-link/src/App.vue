@@ -1,47 +1,66 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+    import THeader from './components/THeader.vue'
+    import TMain from './components/TMain.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <div id="root">
+        <div class="container">
+            <THeader></THeader>
+            <TMain></TMain>
+        </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<style scoped lang="less">
+    #root {
+        display: grid; 
+        grid-auto-columns: 1fr; 
+        grid-template-columns: 1fr 960px 1fr; 
+        gap: 0px 0px; 
+        grid-template-areas: ". container ."; 
+        .container {
+            grid-area: container;
+        }
+    }
+    @media screen and (max-width: 960px) {
+        #root {
+            display: block; 
+        }
+    }
+</style>
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
+<style>
+    #root {
+        background-color: #181818;
+        color: #939393;
+        height: 100%;
+        width: 100%;
+    }
+    a {
+        color: orange;
+        text-decoration: none;
+    }
+    a:hover {
+        color: yellow;
+        text-decoration: underline;
+    }
+    .b {
+        font-weight: bolder;
+    }
+    * {
+        box-sizing: border-box;
+    }
+    .cl-red {
+        color: red;
+    }
+    .t-underline {
+        text-decoration: underline;
+    }
+    code {
+        background-color: #939393;
+        padding: 3px;
+        border-radius: 2px;
+        margin: 0 2px;
+    }
 </style>

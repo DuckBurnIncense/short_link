@@ -1,16 +1,22 @@
 {
-  "name": "vue-project",
+  "name": "short-link",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 8080 --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --port 4173"
   },
   "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^6.1.2",
+    "@fortawesome/free-regular-svg-icons": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.2",
+    "@fortawesome/vue-fontawesome": "^3.0.1",
     "vue": "^3.2.37"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.1",
+    "less": "^4.1.3",
+    "less-loader": "^11.0.0",
     "vite": "^3.0.4"
   }
 }
