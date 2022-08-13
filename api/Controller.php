@@ -60,10 +60,10 @@ class Controller {
 	private static function verify_suffix($suffix) :bool {
 		// 是否存在
 		// Tools::die($suffix);
-		if ($suffix == false) self::reject('参数错误: suffix不存在', 400);
+		if ($suffix == false) self::reject('缺少必要参数: suffix', 400);
 		// 长度
 		$len = mb_strlen($suffix);
-		if ($len < 1 or $len > self::$SUFFIX_MAX_LETTERS) self::reject('后缀过长', 400);
+		if ($len < 1 or $len > self::$SUFFIX_MAX_LETTERS) self::reject('后缀过长, 缩短一点吧~', 400);
 		return true;
 	}
 
@@ -74,11 +74,11 @@ class Controller {
 	private static function verify_link($link) :bool {
 		$url_regexr = "/^((https?:)?\/\/)?(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)$/";
 		// 是否存在
-		if (!$link) self::reject('参数错误: link不存在', 400);
+		if (!$link) self::reject('缺少必要参数: link', 400);
 		// 长度
 		$len = mb_strlen($link);
 		if ($len < 1 or $len > self::$LINK_MAX_LETTERS) self::reject('源链接过长', 400);
-		if (!preg_match($url_regexr, $link)) self::reject('链接不合法', 400);
+		if (!preg_match($url_regexr, $link)) self::reject('源链接不合法', 400);
 		return true;
 	}
 
@@ -91,7 +91,7 @@ class Controller {
 		// 去查数据库
 		$link = Model::get($suffix);
 		// 是否存在
-		if (!$link) self::reject('链接不存在', 404);
+		if (!$link) self::reject('链接不存在或已被封禁', 404);
 		// 成功, 返回
 		self::set_302_header($link);
 		exit();
