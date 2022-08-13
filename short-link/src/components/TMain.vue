@@ -42,7 +42,7 @@
     let successLink = ref('');
 
     function submit() {
-        if (isSuffixIllegal.value || isLinkIllegal.value) {
+        if (isSuffixIllegal.value || isLinkIllegal.value || !d.link) {
             setTimeout(() => {submitTip.value = ''}, 2000);
             return submitTip.value = '请将表单填写完整!';
         }
