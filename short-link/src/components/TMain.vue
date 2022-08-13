@@ -7,6 +7,7 @@
         faTriangleExclamation,
     } from '@fortawesome/free-solid-svg-icons';
     import {useXhrPost} from '@/hooks/xhr.js';
+    import {useCopy} from '@/hooks/clipboard.js';
 
     var d = reactive({
         link: '',
@@ -36,6 +37,7 @@
     }
 
     let submitTip = ref('');
+    let copyTip = ref('点击复制');
     let errorMsg = ref('');
     let successLink = ref('');
 
@@ -51,6 +53,12 @@
             successLink.value = '';
             errorMsg.value = '错误: ' + e.message;
         });
+    }
+
+    function copyLink() {
+        if (!successLink.value) return;
+        useCopy(successLink.value);
+        copyTip.value = '已复制短链接到剪贴板';
     }
 </script>
 
@@ -86,7 +94,7 @@
                     <code>/ (斜杠)</code>, 
                     <code>\ (反斜杠)</code>!
                 </small>
-                <small class="" v-else>不出意外的话, 生成的链接将为 <span class="t-underline">https://链.ml/{{d.suffix}}</span></small>
+                <small class="" v-else>不出意外的话, 生成的短链接将为 <span class="t-underline">https://链.ml/{{d.suffix}}</span></small>
             </p>
         </div>
     </DStep>
@@ -116,7 +124,7 @@
         <div class="step4">
             <p>第四步: 得到缩短后的链接</p>
             <p v-if="successLink">
-                缩短后的链接 (点击复制): <a @click="0" class="cur-pot">{{successLink}}</a>
+                缩短后的链接 ({{copyTip}}): <a @click="copyLink()" class="cur-pot">{{successLink}}</a>
             </p>
             <p v-else-if="errorMsg" class="cl-red">
                 <small>
@@ -125,7 +133,7 @@
                 </small>
             </p>
             <p v-else>
-                链接将会显示在这里
+                生成后的链接将会显示在这里
             </p>
         </div>
     </DStep>
