@@ -4,12 +4,12 @@
 return 0 ? [
 	'database' => [
 		'type' => 'mysql',
-		'host' => '',
+		'host' => $_ENV['HOST'],
 		'port' => 3306,
-		'user' => '',
-		'password' => '',
-		'db' => '',
-		'PRE' => ''
+		'user' => $_ENV['USERNAME'],
+		'password' => $_ENV['PASSWORD'],
+		'db' => $_ENV['DATABASE'],
+		'table_name' => 'short_link'
 	],
 ] : [
 	'database' => [
