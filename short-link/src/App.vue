@@ -1,6 +1,7 @@
 <script setup>
     import THeader from './components/THeader.vue'
     import TMain from './components/TMain.vue'
+    import TFooter from './components/TFooter.vue'
 </script>
 
 <template>
@@ -8,6 +9,7 @@
         <div class="container">
             <THeader></THeader>
             <TMain></TMain>
+            <TFooter></TFooter>
         </div>
     </div>
 </template>
