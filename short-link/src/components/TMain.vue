@@ -45,6 +45,7 @@
     let submitTip = ref('');
     let copyTip = ref('点击复制');
     let errorMsg = ref('');
+    let loading = ref(false);
 
     // 请求成功活获得的短链接
     let shortLink = ref('');
@@ -53,20 +54,22 @@
     function submit() {
         if (isSuffixIllegal.value || isLinkIllegal.value || !d.link) {
             setTimeout(() => {submitTip.value = ''}, 2000);
-            return submitTip.value = '请将表单填写完整!';
+            return submitTip.value = '请先将表单填写完整!';
         }
+        loading.value = true;
         useXhrPost('/api/?p=set', d).then(v => {
             shortLink.value = 'https://链.ml/' + v;
             errorMsg.value = '';
+            loading.value = false;
         }).catch(e => {
             shortLink.value = '';
             errorMsg.value = '错误: ' + e.message;
+            loading.value = false;
         });
     }
 
     // 复制链接
     function copyLink() {
-        if (!shortLink.value) return;
         useCopy(shortLink.value);
         copyTip.value = '已复制短链接到剪贴板';
     }
@@ -116,7 +119,7 @@
         <div class="step3">
             <p>第三步: 提交</p>
             <p>
-                <button @click="submit()">提交</button>
+                <button @click="submit()" :disabled="loading">{{loading ? '提交中' : '提交'}}</button>
             </p>
             <p v-show="submitTip" class="cl-red">
                 <small>
