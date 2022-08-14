@@ -15,7 +15,7 @@ class Model {
 		$pp = $d->pp("INSERT INTO `TN` 
 			(`suffix`, `link`, `time`, `ip`) 
 			VALUES 
-			(?, ?, ?, INET_ATON(?));");
+			(?, ?, ?, ?);");
 		$pp->bv(1, $suffix);
 		$pp->bv(2, $link);
 		$pp->bv(3, $time);
