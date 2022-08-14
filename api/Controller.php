@@ -106,7 +106,7 @@ class Controller {
 		self::verify_link($link);
 		// 是否已存在同名后缀
 		if (Model::get($suffix)) self::reject('已存在同名后缀, 换一个吧~', 409);
-		Model::set($suffix, $link, IP);
+		Model::set($suffix, $link, time(), IP);
 		return self::resolve($suffix);
 	}
 }

@@ -10,15 +10,16 @@ class Model {
 		return $pp->gd()[0]['link'];
 	}
 
-	public static function set($suffix, $link, $ip) :bool {
+	public static function set($suffix, $link, $time, $ip) :bool {
 		$d = DAO::new();
 		$pp = $d->pp("INSERT INTO `TN` 
-			(`suffix`, `link`, `ip`) 
+			(`suffix`, `link`, `time`, `ip`) 
 			VALUES 
-			(?, ?, INET_ATON(?));");
+			(?, ?, ?, INET_ATON(?));");
 		$pp->bv(1, $suffix);
 		$pp->bv(2, $link);
-		$pp->bv(3, $ip);
+		$pp->bv(3, $time);
+		$pp->bv(4, $ip);
 		return $pp->exec();
 	}
 }
