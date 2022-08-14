@@ -23,7 +23,7 @@
 			<h4 class="desc small">
 				还可以自定义链接结尾哦~
 				<br />
-				<small>如: <a href="https://链.ml/一些好康的">https://链.ml/<span class="b">一些好康的</span></a></small>
+				<small>如: <a href="https://链.ml/一些好康的" target="_blank">https://链.ml/<span class="b">一些好康的</span></a></small>
 			</h4>
 		</div>
 	</header>
