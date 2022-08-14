@@ -1,0 +1,15 @@
+php_value display_errors On
+php_value mbstring.http_input auto
+php_value date.timezone Asia/Shanghai
+
+<IfModule mod_negotiation.c>
+  Options -MultiViews
+</IfModule>
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^api\/index\.php$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule (.*) /api/index.php?p=get&s=$1 [L]
+</IfModule>
