@@ -1,31 +1,36 @@
 <script setup>
-    import {computed, ref, reactive} from 'vue';
+    import { computed, ref, reactive } from 'vue';
     import DStep from './DStep.vue';
     import DInput from './DInput.vue';
+    import { useXhrPost } from '@/hooks/xhr.js';
+    import { useCopy } from '@/hooks/clipboard.js';
     import { 
         faLink,
         faTriangleExclamation,
     } from '@fortawesome/free-solid-svg-icons';
-    import {useXhrPost} from '@/hooks/xhr.js';
-    import {useCopy} from '@/hooks/clipboard.js';
 
+    // 请求后端的参数
     var d = reactive({
         link: '',
         suffix: '',
     });
 
+    // 后缀是否合法
     var isSuffixIllegal = computed(() => 
         d.suffix.includes('#') || 
         d.suffix.includes('/') || 
         d.suffix.includes(' ') || 
         d.suffix.includes('\\')
     );
+
+    // 链接是否合法
     var isLinkIllegal = computed(() => 
         !/^((https?:)?\/\/)?(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)$/
         .test(d.link)
     );
 
-    const genSuffix = () => {
+    // 随机生成后缀
+    const generateSuffix = () => {
         let t = 'qwertyuiopasdfghjklzxcvbnm1234567890-';
         let arr = t.split('');
         let g = '';
@@ -36,28 +41,33 @@
         d.suffix = g;
     }
 
+    // 各种提示
     let submitTip = ref('');
     let copyTip = ref('点击复制');
     let errorMsg = ref('');
-    let successLink = ref('');
 
+    // 请求成功活获得的短链接
+    let shortLink = ref('');
+
+    // 提交
     function submit() {
         if (isSuffixIllegal.value || isLinkIllegal.value || !d.link) {
             setTimeout(() => {submitTip.value = ''}, 2000);
             return submitTip.value = '请将表单填写完整!';
         }
         useXhrPost('/api/?p=set', d).then(v => {
-            successLink.value = 'https://链.ml/' + v;
+            shortLink.value = 'https://链.ml/' + v;
             errorMsg.value = '';
         }).catch(e => {
-            successLink.value = '';
+            shortLink.value = '';
             errorMsg.value = '错误: ' + e.message;
         });
     }
 
+    // 复制链接
     function copyLink() {
-        if (!successLink.value) return;
-        useCopy(successLink.value);
+        if (!shortLink.value) return;
+        useCopy(shortLink.value);
         copyTip.value = '已复制短链接到剪贴板';
     }
 </script>
@@ -85,7 +95,7 @@
             <p>第二步: 设置短链接后缀</p>
             <p>https://链.ml/ <DInput v-model="d.suffix" placeholder="在此处设置短链接后缀" /></p>
             <p>
-                <small class="cur-pot" v-if="d.suffix == ''" @click="genSuffix()">[点击此处可随机生成]</small>
+                <small class="cur-pot t-underline" v-if="d.suffix == ''" @click="generateSuffix()">[点击此处可随机生成]</small>
                 <small class="cl-red" v-else-if="isSuffixIllegal">
                     <font-awesome-icon :icon="faTriangleExclamation" />
                     后缀中不能含有以下字符: 
@@ -123,8 +133,8 @@
         <template #heading>第四步</template>
         <div class="step4">
             <p>第四步: 得到缩短后的链接</p>
-            <p v-if="successLink">
-                缩短后的链接 ({{copyTip}}): <a @click="copyLink()" class="cur-pot">{{successLink}}</a>
+            <p v-if="shortLink">
+                缩短后的链接 ({{copyTip}}): <a @click="copyLink()" class="cur-pot">{{shortLink}}</a>
             </p>
             <p v-else-if="errorMsg" class="cl-red">
                 <small>
