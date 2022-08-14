@@ -18,7 +18,7 @@
     #root {
         display: grid; 
         grid-auto-columns: 1fr; 
-        grid-template-columns: 1fr 960px 1fr; 
+        grid-template-columns: 1fr 900px 1fr; 
         gap: 0px 0px; 
         grid-template-areas: ". container ."; 
         .container {
@@ -38,6 +38,7 @@
         color: #939393;
         height: 100%;
         width: 100%;
+        overflow: auto;
     }
     a {
         color: orange;
