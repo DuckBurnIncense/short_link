@@ -3,14 +3,21 @@
 require_once __DIR__ . '/DAO.php';
 
 class Model {
-	public static function get($suffix) {
-		$pp = DAO::new()->pp("SELECT `link` FROM `TN` WHERE `suffix` = ? AND `ban` = 0;");
+	public static function get_link_and_id_by_suffix($suffix) {
+		$pp = DAO::new()->pp("SELECT `id`, `link` FROM `TN` WHERE `suffix` = ? AND `ban` = 0;");
 		$pp->bv(1, $suffix);
 		$pp->exec();
-		return $pp->gd()[0]['link'];
+		$r = $pp->gd()[0];
+		if (!$r) return null;
+		$r['id'] = intval($r['id']);
+		return $r;
 	}
 
-	public static function set($suffix, $link, $time, $ip) :bool {
+	public static function add_views_by_id(int $id) :bool {
+		return DAO::new()->exec("UPDATE `TN` SET `views` = `views` + 1 WHERE `id` = {$id};");
+	}
+
+	public static function insert($suffix, $link, $time, $ip) :bool {
 		$d = DAO::new();
 		$pp = $d->pp("INSERT INTO `TN` 
 			(`suffix`, `link`, `time`, `ip`) 

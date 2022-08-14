@@ -89,9 +89,14 @@ class Controller {
 		// 验证
 		self::verify_suffix($suffix);
 		// 去查数据库
-		$link = Model::get($suffix);
+		$r = Model::get_link_and_id_by_suffix($suffix);
 		// 是否存在
-		if (!$link) self::reject('链接不存在或已被封禁', 404);
+		if (!$r) self::reject('链接不存在或已被封禁', 404);
+		// id&link
+		$id = $r['id'];
+		$link = $r['link'];
+		// 增加浏览量
+		Model::add_views_by_id($id);
 		// 成功, 返回
 		self::set_302_header($link);
 		exit();
@@ -105,8 +110,8 @@ class Controller {
 		self::verify_suffix($suffix);
 		self::verify_link($link);
 		// 是否已存在同名后缀
-		if (Model::get($suffix)) self::reject('已存在同名后缀, 换一个吧~', 409);
-		Model::set($suffix, $link, time(), IP);
+		if (Model::get_link_and_id_by_suffix($suffix)) self::reject('已存在同名后缀, 换一个吧~', 409);
+		Model::insert($suffix, $link, time(), IP);
 		return self::resolve($suffix);
 	}
 }
