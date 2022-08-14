@@ -21,14 +21,17 @@ class DAO {
 		$port = $config['port'] ?? 3306;
 		$user = $config['user'] ?? 'root';
 		$password = $config['password'] ?? 'root';
+		$use_ssl = $config['ssl'];
 		$db = $config['db'] ?? 'root';
 		$this->TN = $config['table_name'] ?? 'dao';
+
 		$this->pdo = new PDO(
 			"$type:dbname=$db;host=$host;port=$port", 
 			$user, 
 			$password, 
 			[
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+				PDO::MYSQL_ATTR_SSL_CA => $use_ssl ? __DIR__ . '/cacert.pem' : null,
 			]
 		);
 		$this->exec("SET NAMES utf8mb4");
