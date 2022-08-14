@@ -17,10 +17,11 @@
 
     // 后缀是否合法
     var isSuffixIllegal = computed(() => 
-        d.suffix.includes('#') || 
-        d.suffix.includes('/') || 
-        d.suffix.includes(' ') || 
-        d.suffix.includes('\\')
+        d.suffix.includes('#')  || 
+        d.suffix.includes('/')  || 
+        d.suffix.includes(' ')  || 
+        d.suffix.includes('\\') ||
+        d.suffix.includes('%')
     );
 
     // 链接是否合法
@@ -105,6 +106,7 @@
                     <code> (空格)</code>, 
                     <code># (井号)</code>, 
                     <code>/ (斜杠)</code>, 
+                    <code>% (百分号)</code>, 
                     <code>\ (反斜杠)</code>!
                 </small>
                 <small class="" v-else>不出意外的话, 生成的短链接将为 <span class="t-underline">https://链.ml/{{d.suffix}}</span></small>
