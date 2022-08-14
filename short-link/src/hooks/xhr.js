@@ -34,10 +34,12 @@ async function useXhr(methods = 'POST', url, data = '') {
 						reject(json);
 					}
 				} else if (this.responseText) {
-					console.error('xhr failed: response is\'n JSON');
+					reject({code: -1001, message: '服务器错误', raw: this.responseText});
+					console.error('XHR failed: response is not JSON');
 				} else {
 					// 断网等情况
-					console.error('$ajax network failed', {response: this});
+					reject({code: -1002, message: '网络错误'});
+					console.error('XHR network failed');
 				}
 			}
 		};
