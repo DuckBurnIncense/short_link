@@ -31,7 +31,7 @@ class DAO {
 			$password, 
 			[
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-				PDO::MYSQL_ATTR_SSL_CA => $use_ssl ? __DIR__ . '/cacert.pem' : null,
+				($use_ssl ? PDO::MYSQL_ATTR_SSL_CA : null) => __DIR__ . '/cacert.pem',
 			]
 		);
 		$this->exec("SET NAMES utf8mb4");
