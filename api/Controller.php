@@ -59,8 +59,14 @@ class Controller {
 	*/
 	private static function verify_suffix($suffix) :bool {
 		// 是否存在
-		// Tools::die($suffix);
 		if ($suffix == false) self::reject('缺少必要参数: suffix', 400);
+		// 特殊字符
+		if (
+			stristr($suffix, '#') || 
+			stristr($suffix, '/') || 
+			stristr($suffix, ' ') || 
+			stristr($suffix, '\\') || 
+			stristr($suffix, '%')) self::reject('源链接不合法', 400);
 		// 长度
 		$len = mb_strlen($suffix);
 		if ($len < 1 or $len > self::$SUFFIX_MAX_LETTERS) self::reject('后缀过长, 缩短一点吧~', 400);
