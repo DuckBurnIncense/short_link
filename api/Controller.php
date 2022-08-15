@@ -7,7 +7,7 @@ class Controller {
 	private static $SUFFIX_MAX_LETTERS = 50;
 	private static $LINK_MAX_LETTERS = 500;
 	private static $PASSWORD_MAX_LETTERS = 200;
-	private static $SPEC_CHARS = ['#', '/', ' ', '\\', '%'];
+	private static $SPEC_CHARS = ['#', '/', ' ', '\\', '%', '?'];
 
 	/*
 	 * @param string $m 可选, 得到指定传参, 不填则返回所有
