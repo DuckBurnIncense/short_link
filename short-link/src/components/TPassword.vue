@@ -25,7 +25,7 @@
         useXhrGet('/' + suffix, {
             password: password.value
         }).then(v => {
-            // 成功, 啥也不用做, 302会自动跳转
+            location.href = v;
         }).catch(e => {
             tip.value = e.message;
         });
