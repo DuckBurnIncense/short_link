@@ -11,4 +11,10 @@ return [
 		'table_name' => 'short_link', // 表名
 		'ssl' => false // 是否使用ssl连接数据库
 	],
+	'limit' => [
+		'enable' => true, // 是否启用
+		'max_request_times_per_day' => 100, // 每24小时最大生成短链接数
+		'cf_zone_id' => '', // cloudflare的zone id
+		'cf_authorization' => '' // cloudflare的访问token
+	]
 ];

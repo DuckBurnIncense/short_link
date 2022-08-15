@@ -25,9 +25,10 @@
  *            佛祖保佑     永不宕机     永无BUG
 **/
 
-// 引入文件
-require_once __DIR__ . '/Controller.php';
-require_once __DIR__ . '/Tools.php';
+// 自动加载
+spl_autoload_register(function($class) {
+	require_once __DIR__ . '/' . $class . '.php';
+});
 
 // 配置文件
 $config = require __DIR__ . '/configuration.php';
@@ -51,9 +52,9 @@ header('X-Powered-By: DBI/1.0.0');
 
 // router
 if (REQUEST_METHOD == 'GET') {
-	Controller::get();
+	RecordController::get();
 } else if (REQUEST_METHOD == 'POST' and URI == '/api/set') {
-	Controller::set();
+	RecordController::set();
 } else {
 	Tools::die('请求错误', 400);
 }

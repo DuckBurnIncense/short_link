@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/DAO.php';
 
-class Model {
+class RecordModel {
 	public static function get_id_by_suffix($suffix) {
 		$pp = DAO::new()->pp("SELECT `id` FROM `TN` WHERE `suffix` = ? AND `ban` = 0;");
 		$pp->bv(1, $suffix);
