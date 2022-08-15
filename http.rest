@@ -1,12 +1,32 @@
-###
+### 访问正常链接
 
-GET http://192.168.1.99:23456/?p=get&s=123456
+GET http://192.168.1.99:23456/123456
 
-### 
+### 正常设置短链接
 
-POST http://192.168.1.99:23456/?p=set
+POST http://192.168.1.99:23456/api/set
 
 {
-	"suffix": "tbili\\`'\"",
+	"suffix": "123456",
 	"link": "//t.bilibili.com/"
 }
+
+### 设置带密码的短链接
+
+POST http://192.168.1.99:23456/api/set
+
+{
+	"suffix": "tbili2",
+	"link": "http://t.bilibili.com/",
+	"password": "2333"
+}
+
+### 访问带密码的短链接 (重定向到输入密码页)
+
+GET http://192.168.1.99:23456/tbili1
+
+### 正常访问带密码的短链接
+
+GET http://192.168.1.99:23456/tbili1?password=2333
+
+###
