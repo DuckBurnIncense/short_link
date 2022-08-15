@@ -136,13 +136,19 @@ class Controller {
 				self::reject('访问密码不正确', 401);
 			} else {
 				// 密码正确, 允许继续
+				// 增加浏览量
+				Model::add_views_by_id($id);
+				// 正常返回
+				return self::resolve($link);
 			}
+		} else {
+			// 无需密码
+			// 增加浏览量
+			Model::add_views_by_id($id);
+			// 成功, 返回
+			self::set_302_header($link);
+			exit();
 		}
-		// 增加浏览量
-		Model::add_views_by_id($id);
-		// 成功, 返回
-		self::set_302_header($link);
-		exit();
 	}
 
 	public static function set() {
