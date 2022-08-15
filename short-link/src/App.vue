@@ -1,15 +1,31 @@
 <script setup>
-    import THeader from './components/THeader.vue'
-    import TMain from './components/TMain.vue'
-    import TFooter from './components/TFooter.vue'
+    import THeader from './components/THeader.vue';
+    import TMain from './components/TMain.vue';
+    import TFooter from './components/TFooter.vue';
+    import DPassword from './components/DPassword.vue';
+
+    function getQueryVariable(variable){
+        let query = window.location.search.substring(1);
+        let vars = query.split("&");
+        for (let i=0;i<vars.length;i++) {
+            let pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+
+    const suffix = getQueryVariable('suffix');
 </script>
 
 <template>
     <div id="root">
-        <div class="container">
+        <div class="container" v-if="!suffix">
             <THeader></THeader>
             <TMain></TMain>
             <TFooter></TFooter>
+        </div>
+        <div class="container" v-else>
+            <DPassword :suffix="suffix"></DPassword>
         </div>
     </div>
 </template>
