@@ -105,4 +105,14 @@ class Controller {
 		if (mb_strlen($password) > self::$PASSWORD_MAX_LETTERS) self::reject('访问密码过长', 400);
 		return true;
 	}
+
+	/* 
+	 * @param string $link 链接
+	 * 把没有协议头的链接加上http协议头
+	*/
+	protected static function add_http_protocol_header_if_not_exist($link) :string {
+		// 如果没有协议头则自动添加
+		if (!preg_match("/^((https?:)?\/\/)/", $link)) $link = 'http://' . $link;
+		return $link;
+	}
 }

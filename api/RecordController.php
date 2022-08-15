@@ -13,7 +13,7 @@ class RecordController extends Controller {
 		if (!$r) self::reject('链接不存在或已被封禁', 404);
 		// id&link&password
 		$id = $r['id'];
-		$link = $r['link'];
+		$link = self::add_http_protocol_header_if_not_exist($r['link']);
 		$real_password = $r['password'];
 		// 判断密码是否正确
 		if ($real_password) {
