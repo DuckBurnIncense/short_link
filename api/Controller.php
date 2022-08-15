@@ -6,6 +6,8 @@ require_once __DIR__ . '/Model.php';
 class Controller {
 	private static $SUFFIX_MAX_LETTERS = 50;
 	private static $LINK_MAX_LETTERS = 500;
+	private static $PASSWORD_MAX_LETTERS = 200;
+	private static $SPEC_CHARS = ['#', '/', ' ', '\\', '%'];
 
 	/*
 	 * @param string $m 可选, 得到指定传参, 不填则返回所有
@@ -57,16 +59,23 @@ class Controller {
 	 * @param string $suffix 后缀
 	 * 验证后缀是否合法
 	*/
+	private static function is_str_has_spec_char($str) :bool {
+		$s = self::$SPEC_CHARS;
+		foreach ($s as $a) {
+			if (stristr($str, $a)) return true;
+		}
+		return false;
+	}
+
+	/* 
+	 * @param string $suffix 后缀
+	 * 验证后缀是否合法
+	*/
 	private static function verify_suffix($suffix) :bool {
 		// 是否存在
-		if ($suffix == false) self::reject('缺少必要参数: suffix', 400);
+		if (!$suffix) self::reject('缺少必要参数: suffix', 400);
 		// 特殊字符
-		if (
-			stristr($suffix, '#') || 
-			stristr($suffix, '/') || 
-			stristr($suffix, ' ') || 
-			stristr($suffix, '\\') || 
-			stristr($suffix, '%')) self::reject('源链接不合法', 400);
+		if (self::is_str_has_spec_char($suffix)) self::reject('后缀不合法', 400);
 		// 长度
 		$len = mb_strlen($suffix);
 		if ($len < 1 or $len > self::$SUFFIX_MAX_LETTERS) self::reject('后缀过长, 缩短一点吧~', 400);
@@ -88,19 +97,47 @@ class Controller {
 		return true;
 	}
 
+	/* 
+	 * @param string $password 密码
+	 * 验证访问密码是否合法
+	*/
+	private static function verify_password($password) :bool {
+		// 特殊字符
+		if (self::is_str_has_spec_char($password)) self::reject('访问密码不合法', 400);
+		// 长度
+		if (mb_strlen($password) > self::$PASSWORD_MAX_LETTERS) self::reject('访问密码过长', 400);
+		return true;
+	}
+
 	public static function get() {
-		// 得到参数
-		$suffix = self::get_data('s');
-		
+		// 得到要访问的后缀
+		$suffix = trim(URI, '/');
+		$input_password = $_GET['password'];
 		// 验证
 		self::verify_suffix($suffix);
 		// 去查数据库
-		$r = Model::get_link_and_id_by_suffix($suffix);
+		$r = Model::get_base_info_by_suffix($suffix);
 		// 是否存在
 		if (!$r) self::reject('链接不存在或已被封禁', 404);
-		// id&link
+		// id&link&password
 		$id = $r['id'];
 		$link = $r['link'];
+		$real_password = $r['password'];
+		// 判断密码是否正确
+		if ($real_password) {
+			// 如果存在密码
+			if (!$input_password) {
+				// 如果未输入密码
+				// 重定向到输入密码页
+				self::set_302_header('/?suffix=' . $suffix);
+				exit();
+			} else if ($real_password != $input_password) {
+				// 密码不正确
+				self::reject('访问密码不正确', 401);
+			} else {
+				// 密码正确, 允许继续
+			}
+		}
 		// 增加浏览量
 		Model::add_views_by_id($id);
 		// 成功, 返回
@@ -112,12 +149,16 @@ class Controller {
 		$data = self::get_data();
 		$suffix = $data['suffix'];
 		$link = $data['link'];
+		$password = $data['password'] ?? null;
 		// 验证
 		self::verify_suffix($suffix);
 		self::verify_link($link);
+		self::verify_password($password);
 		// 是否已存在同名后缀
-		if (Model::get_link_and_id_by_suffix($suffix)) self::reject('已存在同名后缀, 换一个吧~', 409);
-		Model::insert($suffix, $link, time(), IP);
+		if (Model::get_id_by_suffix($suffix)) self::reject('已存在同名后缀, 换一个吧~', 409);
+		// 插入数据
+		Model::insert($suffix, $link, $password, time(), IP);
+		// 返回结果
 		return self::resolve($suffix);
 	}
 }
