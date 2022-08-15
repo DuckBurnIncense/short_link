@@ -18,7 +18,7 @@
     });
 
     // 特殊字符
-    const SPEC_CHARS = ['#', '/', ' ', '\\', '%'];
+    const SPEC_CHARS = ['#', '/', ' ', '\\', '%', '?'];
     function isStrHasSpecChar(s) {
         let r = false;
         SPEC_CHARS.forEach(c => {
@@ -116,7 +116,8 @@
                     <code># (井号)</code>, 
                     <code>/ (斜杠)</code>, 
                     <code>\ (反斜杠)</code>, 
-                    <code>% (百分号)</code>!
+                    <code>% (百分号)</code>, 
+                    <code>? (问号)</code>!
                 </small>
                 <small class="" v-else>不出意外的话, 生成的短链接将为 <span class="t-underline">https://链.ml/{{d.suffix}}</span> (不区分大小写)</small>
             </p>
@@ -138,7 +139,8 @@
                 <code># (井号)</code>, 
                 <code>/ (斜杠)</code>, 
                 <code>\ (反斜杠)</code>, 
-                <code>% (百分号)</code>!
+                <code>% (百分号)</code>, 
+                <code>? (问号)</code>!
             </small>
         </div>
     </DStep>
