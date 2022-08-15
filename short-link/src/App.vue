@@ -2,7 +2,7 @@
     import THeader from './components/THeader.vue';
     import TMain from './components/TMain.vue';
     import TFooter from './components/TFooter.vue';
-    import DPassword from './components/DPassword.vue';
+    import TPassword from './components/TPassword.vue';
 
     function getQueryVariable(variable){
         let query = window.location.search.substring(1);
@@ -25,7 +25,7 @@
             <TFooter></TFooter>
         </div>
         <div class="container" v-else>
-            <DPassword :suffix="suffix"></DPassword>
+            <TPassword :suffix="suffix"></TPassword>
         </div>
     </div>
 </template>
