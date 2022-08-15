@@ -11,5 +11,5 @@ php_value date.timezone Asia/Shanghai
   RewriteRule ^api\/index\.php$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule (.*) /api/index.php?p=get&s=$1 [L]
+  RewriteRule . /api/index.php [L]
 </IfModule>
