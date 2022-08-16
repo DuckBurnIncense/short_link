@@ -5,7 +5,7 @@ class LimitModel {
 		$ltime = time() - 86400;
 		$count = DAO::new()->query_once("SELECT 
 			COUNT(`id`) AS 'count' 
-			FROM `TN` 
+			FROM `PRE_record` 
 			WHERE `ip` = '{$ip}'
 			AND `time` > {$ltime};")['count'];
 		return intval($count);

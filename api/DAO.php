@@ -4,7 +4,7 @@ require_once __DIR__ . '/Tools.php';
 
 class DAO {
 	private $pdo;
-	private $TN;
+	private $PREFIX;
 	private static $SELF_OBJECT;
 
 	public static function new() {
@@ -23,7 +23,7 @@ class DAO {
 		$password = $config['password'] ?? 'root';
 		$use_ssl = $config['ssl'];
 		$db = $config['db'] ?? 'root';
-		$this->TN = $config['table_name'] ?? 'dao';
+		$this->PREFIX = $config['table_prefix'] ?? '';
 
 		$this->pdo = new PDO(
 			"$type:dbname=$db;host=$host;port=$port", 
@@ -38,7 +38,7 @@ class DAO {
 	}
 
 	private function replace_PRE($sql) {
-		return str_replace('TN', $this->TN, $sql);
+		return str_replace('PRE', $this->PREFIX, $sql);
 	}
 
 	private static function process_pdo_error($e) {

@@ -4,7 +4,7 @@ require_once __DIR__ . '/DAO.php';
 
 class RecordModel {
 	public static function get_id_by_suffix($suffix) {
-		$pp = DAO::new()->pp("SELECT `id` FROM `TN` WHERE `suffix` = ? AND `ban` = 0;");
+		$pp = DAO::new()->pp("SELECT `id` FROM `PRE_record` WHERE `suffix` = ? AND `ban` = 0;");
 		$pp->bv(1, $suffix);
 		$pp->exec();
 		$id = $pp->gd()[0]['id'];
@@ -13,7 +13,7 @@ class RecordModel {
 	}
 
 	public static function get_base_info_by_suffix($suffix) {
-		$pp = DAO::new()->pp("SELECT `id`, `link`, `password` FROM `TN` WHERE `suffix` = ? AND `ban` = 0;");
+		$pp = DAO::new()->pp("SELECT `id`, `link`, `password` FROM `PRE_record` WHERE `suffix` = ? AND `ban` = 0;");
 		$pp->bv(1, $suffix);
 		$pp->exec();
 		$r = $pp->gd()[0];
@@ -23,12 +23,12 @@ class RecordModel {
 	}
 
 	public static function add_views_by_id(int $id) :bool {
-		return DAO::new()->exec("UPDATE `TN` SET `views` = `views` + 1 WHERE `id` = {$id};");
+		return DAO::new()->exec("UPDATE `PRE_record` SET `views` = `views` + 1 WHERE `id` = {$id};");
 	}
 
 	public static function insert($suffix, $link, $password, $time, $ip) :bool {
 		$d = DAO::new();
-		$pp = $d->pp("INSERT INTO `TN` 
+		$pp = $d->pp("INSERT INTO `PRE_record` 
 			(`suffix`, `link`, `password`, `time`, `ip`) 
 			VALUES 
 			(?, ?, ?, ?, ?);");

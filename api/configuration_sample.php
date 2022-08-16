@@ -8,7 +8,7 @@ return [
 		'user' => 'root', // 用户名
 		'password' => 'root', // 密码
 		'db' => 'database', // 数据库名
-		'table_name' => 'short_link', // 表名
+		'table_prefix' => 'sl', // 表名
 		'ssl' => false // 是否使用ssl连接数据库
 	],
 	'limit' => [
