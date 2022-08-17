@@ -44,7 +44,6 @@ class RecordController extends Controller {
 	}
 
 	public static function set() {
-		LimitController::check();
 		$data = self::get_data();
 		$suffix = $data['suffix'];
 		$link = $data['link'];
