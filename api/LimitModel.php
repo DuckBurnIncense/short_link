@@ -13,13 +13,13 @@ class LimitModel {
 			$i['id'] = intval($i['id']);
 			$i['time'] = intval($i['time']);
 		}
-		return $info;
+		return $info ?? [];
 	}
 
 	public static function add_access_record($ip, $time, $status, $uri) :bool {
 		$pp = DAO::new()->pp("INSERT INTO `PRE_rate_limit` 
 			(`ip`, `time`, `status`, `uri`)
-			VALUE
+			VALUES
 			(?, ?, ?, ?)");
 		$pp->bv(1, $ip);
 		$pp->bv(2, $time);
