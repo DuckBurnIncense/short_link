@@ -3,6 +3,8 @@
 	import { 
         faLink,
     } from '@fortawesome/free-solid-svg-icons';
+	// 现在的时间
+	const nowTime = new Date().getTime();
 	// 生成十六进制颜色 
 	let deg360 = ref(0);
 	const interval = setInterval(() => {
@@ -25,6 +27,10 @@
 				<br />
 				<small>如: <a href="https://链.ml/一些好康的" target="_blank">https://链.ml/<span class="b">一些好康的</span></a></small>
 			</h4>
+			<small class="cl-red">
+				注意: 因总有人闲着没事攻击我网站, 近期访问速度可能会有所下降, 请谅解.
+				<a :href="'http://fxxk-attacker.xn--eb5a.ml/bans.html?t=' + nowTime" target="_blank">[小黑屋]</a>
+			</small>
 		</div>
 	</header>
 </template>
@@ -40,6 +46,8 @@
 			color: yellow;
 		}
 		.greetings {
+			padding: 1em;
+			
 			.title {
 				font-weight: bold;
 				font-size: 2.5em;
