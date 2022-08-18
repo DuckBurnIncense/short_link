@@ -1,24 +1,33 @@
 <script setup>
 	import {ref, onBeforeUnmount} from 'vue';
-	import { 
-        faLink,
-    } from '@fortawesome/free-solid-svg-icons';
+	import LogoSvg from './LogoSvg.vue';
 	// 现在的时间
 	const nowTime = new Date().getTime();
-	// 生成十六进制颜色 
+	// 生成颜色 
 	let deg360 = ref(0);
-	const interval = setInterval(() => {
+	const interval1 = setInterval(() => {
 		deg360.value += 1;
 		if (deg360.value >= 360) deg360.value = 0;
 	}, 5);
+	let rgb256 = ref(0);
+	let rgb256IsPlus = 1;
+	const interval2 = setInterval(() => {
+		rgb256.value += rgb256IsPlus ? 1 : -1;
+		if (rgb256.value >= 256 || rgb256.value <= 0) rgb256IsPlus = !rgb256IsPlus;
+	}, 25);
 	onBeforeUnmount(() => {
-		clearInterval(interval);
+		clearInterval(interval1);
+		clearInterval(interval2);
 	});
 </script>
 
 <template>
 	<header>
-		<font-awesome-icon class="logo" :icon="faLink" />
+		<LogoSvg 
+			class="logo" 
+			:col1="'rgb(255, ' + rgb256 + ', 0)'"
+			:col2="'rgb(255, ' + (256 - rgb256) + ', 0)'"
+		/>
 		<div class="greetings">
 			<h1 class="title">链.ml</h1>
 			<h3 class="desc">把你的链接变<mark :style="{backgroundImage: 'linear-gradient(' + deg360 + 'deg, yellow, orange)'}">短</mark>!</h3>
