@@ -52,6 +52,7 @@ class RecordController extends Controller {
 		self::verify_suffix($suffix);
 		self::verify_link($link);
 		self::verify_password($password);
+		if (stristr($link, '/' . $suffix)) self::reject('禁止套娃!', 400);
 		// 是否已存在同名后缀
 		if (RecordModel::get_id_by_suffix($suffix)) self::reject('已存在同名后缀, 换一个吧~', 409);
 		// 插入数据
