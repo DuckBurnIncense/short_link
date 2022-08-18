@@ -6,7 +6,8 @@
 
 <template>
 	<footer>
-		<p>{{msg}}</p>
+		<p>{{msg}} <a href="http://fxxk-attacker.xn--eb5a.ml/bans.html" target="_blank">[小黑屋]</a></p>
+		<p style="color: lightgray;">个人小站点, 会尽最大努力保证网站长期稳定, 但绝不保证网站一定长期稳定.</p>
 		<p>&copy; 2022 DuckBurnIncense, All rights reserved.</p>
 		<p>Contact: <a href="mailto:duckburnincense@outlook.com">DuckBurnIncense@outlook.com</a></p>
 	</footer>
