@@ -53,8 +53,8 @@ class Controller {
 	}
 
 	/* 
-	 * @param string $suffix 后缀
-	 * 验证后缀是否合法
+	 * @param string $str 字符串
+	 * 字符串中是否含有特殊字符
 	*/
 	protected static function is_str_has_spec_char($str) :bool {
 		$s = self::$SPEC_CHARS;
