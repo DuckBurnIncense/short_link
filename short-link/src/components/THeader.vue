@@ -27,10 +27,13 @@
 				<br />
 				<small>如: <a href="https://链.ml/一些好康的" target="_blank">https://链.ml/<span class="b">一些好康的</span></a></small>
 			</h4>
-			<small class="cl-red">
-				注意: 因总有人闲着没事攻击我网站, 近期访问速度可能会有所下降, 请谅解.
-				<a :href="'http://fxxk-attacker.xn--eb5a.ml/bans.html?t=' + nowTime" target="_blank">[小黑屋]</a>
-			</small>
+			<h6 class="desc smaller danger-box">
+				注意: 因近期总有人闲着没事攻击我网站, 访问速度可能会有所下降, 请谅解.
+				<br />
+				<del>(要哪天网站挂了也得是攻击者的锅)</del>
+				<br />
+				<a :href="'https://fxxk-attacker.xn--eb5a.ml/bans.html?t=' + nowTime" target="_blank">[小黑屋]</a> ←来攻击我网站的
+			</h6>
 		</div>
 	</header>
 </template>
@@ -59,6 +62,9 @@
 				text-align: center;
 				&.small {
 					font-size: 1em;
+				}
+				&.smaller {
+					font-size: 0.8em;
 				}
 
 				mark {
