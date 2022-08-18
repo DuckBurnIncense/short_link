@@ -9,6 +9,7 @@
         faLink,
         faTriangleExclamation,
     } from '@fortawesome/free-solid-svg-icons';
+    import DQRCode from './DQRCode.vue';
 
     // 请求后端的参数
     var d = reactive({
@@ -169,8 +170,10 @@
         <template #heading>第五步</template>
         <div class="step5">
             <p>第五步: 得到缩短后的链接</p>
+            <!-- <DQRCode value="https://链.ml/123啊啊啊啊啊"></DQRCode> -->
             <p v-if="shortLink">
-                缩短后的链接 ({{copyTip}}): <a @click="copyLink()" class="cur-pot">{{shortLink}}</a>
+                <p>缩短后的链接 ({{copyTip}}): <a @click="copyLink()" class="cur-pot">{{shortLink}}</a></p>
+                <p><DQRCode :value="shortLink"></DQRCode></p>
             </p>
             <p v-else-if="errorMsg" class="cl-red">
                 <small>

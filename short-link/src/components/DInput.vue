@@ -18,19 +18,19 @@
 </template>
 
 <script setup>
-defineProps({
-	modelValue: {
-		type: String,
-		required: 1
-	},
-	placeholder: {
-		type: String
-	},
-	style: {
-		type: Object
-	}
-});
-defineEmits([
-	'update:modelValue'
-]);
+	defineProps({
+		modelValue: {
+			type: String,
+			required: 1
+		},
+		placeholder: {
+			type: String
+		},
+		style: {
+			type: Object
+		}
+	});
+	defineEmits([
+		'update:modelValue'
+	]);
 </script>
