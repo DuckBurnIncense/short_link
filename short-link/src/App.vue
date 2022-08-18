@@ -87,4 +87,10 @@
     .cur-pot {
         cursor: pointer;
     }
+    .danger-box {
+        color: red;
+        border: 1px solid red;
+        border-radius: 5px;
+        box-shadow: 0 0 1em red;
+    }
 </style>
