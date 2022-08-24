@@ -10,6 +10,10 @@
         faTriangleExclamation,
     } from '@fortawesome/free-solid-svg-icons';
     import DQRCode from './DQRCode.vue';
+    import config from '@/hooks/config.js';
+
+    // 链接
+    const URL = config.global.URL;
 
     // 请求后端的参数
     var d = reactive({
@@ -69,7 +73,7 @@
         }
         loading.value = true;
         useXhrPost('/api/set', d).then(v => {
-            shortLink.value = 'https://链.ml/' + v;
+            shortLink.value = URL + v;
             errorMsg.value = '';
             loading.value = false;
         }).catch(e => {
@@ -107,7 +111,7 @@
         <template #heading>第二步</template>
         <div class="step2">
             <p>第二步: 设置短链接后缀</p>
-            <p>https://链.ml/ <DInput v-model="d.suffix" placeholder="在此处设置短链接后缀" /></p>
+            <p>{{URL}} <DInput v-model="d.suffix" placeholder="在此处设置短链接后缀" /></p>
             <p>
                 <small class="cur-pot t-underline" v-if="d.suffix == ''" @click="generateSuffix()">[点击此处可随机生成]</small>
                 <small class="cl-red" v-else-if="isSuffixIllegal">
@@ -120,7 +124,7 @@
                     <code>% (百分号)</code>, 
                     <code>? (问号)</code>!
                 </small>
-                <small class="" v-else>不出意外的话, 生成的短链接将为 <span class="t-underline">https://链.ml/{{d.suffix}}</span> (不区分大小写)</small>
+                <small class="" v-else>不出意外的话, 生成的短链接将为 <span class="t-underline">{{URL + d.suffix}}</span> (不区分大小写)</small>
             </p>
         </div>
     </DStep>

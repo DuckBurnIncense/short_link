@@ -1,22 +1,28 @@
 <script setup>
 	import {ref, onBeforeUnmount} from 'vue';
 	import LogoSvg from './LogoSvg.vue';
-	// 现在的时间
-	const nowTime = new Date().getTime();
+	import config from '@/hooks/config.js';
+	// 配置中的 header
+	const hConfig = config.body.header;
 	// 生成颜色 
-	let deg360 = ref(0);
-	const interval1 = setInterval(() => {
-		deg360.value += 1;
-		if (deg360.value >= 360) deg360.value = 0;
-	}, 5);
+	// logo
+	var deg360 = ref(0);
+	if (!hConfig.logo) {
+		var interval1 = setInterval(() => {
+			deg360.value += 1;
+			if (deg360.value >= 360) deg360.value = 0;
+		}, 5);
+	}
+	// desc 的 mark
 	let rgb256 = ref(0);
 	let rgb256IsPlus = 1;
 	const interval2 = setInterval(() => {
 		rgb256.value += rgb256IsPlus ? 1 : -1;
 		if (rgb256.value >= 256 || rgb256.value <= 0) rgb256IsPlus = !rgb256IsPlus;
 	}, 25);
+	// 清除定时器
 	onBeforeUnmount(() => {
-		clearInterval(interval1);
+		if (!hConfig.logo) clearInterval(interval1);
 		clearInterval(interval2);
 	});
 </script>
@@ -24,25 +30,24 @@
 <template>
 	<header>
 		<LogoSvg 
+			v-if="!hConfig.logo"
 			class="logo" 
 			:col1="'rgb(255, ' + rgb256 + ', 0)'"
 			:col2="'rgb(255, ' + (256 - rgb256) + ', 0)'"
 		/>
+		<img v-else :src="hConfig.logo" class="logo" alt="logo">
 		<div class="greetings">
-			<h1 class="title">链.ml</h1>
-			<h3 class="desc">把你的链接变<mark :style="{backgroundImage: 'linear-gradient(' + deg360 + 'deg, yellow, orange)'}">短</mark>!</h3>
-			<h4 class="desc small">
-				还可以自定义链接结尾哦~
-				<br />
-				<small>如: <a href="https://链.ml/一些好康的" target="_blank">https://链.ml/<span class="b">一些好康的</span></a></small>
-			</h4>
-			<h6 class="desc smaller danger-box">
-				注意: 因近期总有人闲着没事攻击我网站, 访问速度可能会有所下降, 请谅解.
-				<br />
-				<del>(要哪天网站挂了也得是攻击者的锅)</del>
-				<br />
-				<a :href="'https://fxxk-attacker.xn--eb5a.ml/bans.html?t=' + nowTime" target="_blank">[小黑屋]</a> ←来攻击我网站的
-			</h6>
+			<h1 class="title" v-html="hConfig.title"></h1>
+			<h3 class="desc">
+				<span v-html="hConfig.desc.normalFront"></span>
+				<mark 
+					:style="{backgroundImage: 'linear-gradient(' + deg360 + 'deg, yellow, orange)'}"
+					v-html="hConfig.desc.highlight"
+				></mark>
+				<span v-html="hConfig.desc.normalBehind"></span>
+			</h3>
+			<h4 v-if="hConfig.smallDesc" class="desc small" v-html="hConfig.smallDesc"></h4>
+			<h6 v-if="hConfig.warnBox" class="desc smaller danger-box" v-html="hConfig.warnBox"></h6>
 		</div>
 	</header>
 </template>

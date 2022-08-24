@@ -3,6 +3,7 @@
     import TMain from './components/TMain.vue';
     import TFooter from './components/TFooter.vue';
     import TPassword from './components/TPassword.vue';
+    import config from '@/hooks/config.js';
 
     function getQueryVariable(variable){
         let query = window.location.search.substring(1);
@@ -15,6 +16,16 @@
     }
 
     const suffix = getQueryVariable('suffix');
+
+    document.title = import.meta.env.DEV ? ('开发环境 - ' + config.head.title) : config.head.title;
+    if (config.global.consoleLog) console.log(config.global.consoleLog);
+    if (config.head.faviconIco) {
+        let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+        link.type = 'image/x-icon';
+        link.rel = 'shortcut icon';
+        link.href = config.head.faviconIco;
+        document.getElementsByTagName('head')[0].appendChild(link);
+    }
 </script>
 
 <template>
@@ -92,5 +103,6 @@
         border: 1px solid red;
         border-radius: 5px;
         box-shadow: 0 0 1em red;
+        padding: 0.5em;
     }
 </style>
