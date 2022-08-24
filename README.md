@@ -43,8 +43,9 @@
 5. 回到 `Release` 目录, 打开 `db` 文件夹
 6. 用 `navicat`, `phpmyadmin`, `mysql 命令行工具` 等工具连接到你的数据库, 并导入 `short_link.sql`;
 7. 回到 `Release` 目录, 删除 `db` 文件夹;
-8. 将 `Release` 文件夹下的所有内容上传到你的服务器 (的 `htdocs` 文件夹);
-9. 访问你的网站, 完成!
+8. 按照文件内的提示修改 `config.js`;
+9. 将 `Release` 文件夹下的所有文件上传到你的服务器 (的 `htdocs` 文件夹);
+10. 访问你的网站, 完成!
 
 ## 开发说明
 
