@@ -4,6 +4,8 @@
 
 [https://链.ml/](https://链.ml/)
 
+注: 本人采用 freenom (域名) + cloudflare (防刷接口) + infinityfree (代码托管) + planetscale (数据库) 的纯白嫖方式搭建此demo.
+
 ## 依赖
 
 - Apache
@@ -34,10 +36,10 @@
 			3. `令牌名称` 自己取;
 			4. `权限` 选 `区域`, `区域 WAF`, `编辑`;
 			5. `区域资源` 选 `包括`, `特定区域`, `(你的网站域名)`;
-			6. `TTL` 选择当前日期到一年后 (一年后需要重新创建令牌替换当前令牌token, 主要是为了安全方面考虑, 不能设置太久);
+			6. `TTL` 选择当前日期到一年后 (一年后需要重新创建令牌替换当前令牌token, 为了安全方面考虑, 不建议设置太久);
 			7. 点击 `继续以显示摘要`;
 			8. 点击 `创建令牌`;
-			9. 获得令牌 Token, 在其前面添加 `Bearer (<-这里有一个空格)`, 完成;
+			9. 获得令牌 Token, 在其前面添加 `Bearer `(<-这里有一个空格), 完成;
 			10. 示例值: `Bearer qWeRtYu1oP1AsD2F3G5Hz4-aSdF7HjKl1ZxCv3V5`.
 4. 将 `configuration_sample.php` 重命名为 `configuration.php`;
 5. 回到 `Release` 目录, 打开 `db` 文件夹
