@@ -26,6 +26,11 @@
         link.href = config.head.faviconIco;
         document.getElementsByTagName('head')[0].appendChild(link);
     }
+    if (config.head.metaDescription) {
+        let meta = document.querySelector("meta[name*='description']") || document.createElement('link');
+        meta.content = config.head.metaDescription;
+        document.getElementsByTagName('head')[0].appendChild(meta);
+    }
 </script>
 
 <template>
