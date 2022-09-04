@@ -36,6 +36,7 @@ window.configs = { // 前端配置文件
 					搭个小破网站不容易, 求各位大佬手下留情放过我, 别攻击... 
 					<a href="http://fxxk-attacker.xn--eb5a.ml/bans.html" target="_blank">[小黑屋]</a>
 				</p>
+				<p><a href="/open-source" target="_blank">开源地址: https://链.ml/open-source</a></p>
 				<p style="color: lightgray;">个人用爱发电的小站点, 会尽最大努力保证网站长期稳定运行, 但绝不对长期稳定运行提供担保.</p>
 				<p>&copy; 2022 <a href="mailto:duckburnincense@outlook.com">DuckBurnIncense</a>, All rights reserved.</p>
 			` // (支持HTML) 页面最下方的脚注 (版权信息)
