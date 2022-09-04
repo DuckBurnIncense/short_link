@@ -11,10 +11,17 @@
 
 <style scoped>
 	button {
-        background-color: dimgray;
+        background-color: #212121;
         padding: 0.8em;
-        border: 0.2px solid gray;
-        border-radius: 0.2em;
+        border: 0.1px solid #2d2d2d;
+        border-radius: 4px;
         color: white;
+    }
+	button:hover {
+        background-color: #484848;
+    }
+    button:disabled {
+        background: #1b1b1b;
+        color: #3d3d3d;
     }
 </style>

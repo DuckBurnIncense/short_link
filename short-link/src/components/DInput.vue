@@ -3,8 +3,9 @@
 		background-color: transparent;
 		padding: 0.8em;
 		border: 0.5px solid gray;
-		border-radius: 0.2em;
+		border-radius: 4px;
 		color: white;
+		outline: none;
 	}
 </style>
 
