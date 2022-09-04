@@ -11,6 +11,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.2",
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
     "@fortawesome/vue-fontawesome": "^3.0.1",
+    "@vuepic/vue-datepicker": "^3.4.7",
     "qrcode": "^1.5.1",
     "vue": "^3.2.37"
   },
