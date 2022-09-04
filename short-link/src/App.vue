@@ -1,7 +1,7 @@
 <script setup>
-    import THeader from './components/THeader.vue';
-    import TMain from './components/TMain.vue';
-    import TFooter from './components/TFooter.vue';
+    import THeader from './components/Header/THeader.vue';
+    import TMain from './components/Main/TMain.vue';
+    import TFooter from './components/Footer/TFooter.vue';
     import TPassword from './components/TPassword.vue';
     import config from '@/hooks/config.js';
 
@@ -48,6 +48,7 @@
 
 <style scoped lang="less">
     #root {
+        color-scheme: dark;
         display: grid; 
         grid-auto-columns: 1fr; 
         grid-template-columns: 1fr 900px 1fr; 
