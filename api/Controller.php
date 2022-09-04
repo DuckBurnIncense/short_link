@@ -76,6 +76,8 @@ class Controller {
 		// 长度
 		$len = mb_strlen($suffix);
 		if ($len < 1 or $len > self::$SUFFIX_MAX_LETTERS) self::reject('后缀过长, 缩短一点吧~', 400);
+		// 是否为已存在的文件
+		if (file_exists(__DIR__ . "/..\/" . $suffix)) self::reject('这没有bug, 赶紧给爷爬doge', 400);
 		return true;
 	}
 
