@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, watch } from 'vue';
+    import { ref, watch, watchEffect } from 'vue';
     import DStep from '@/components/DStep.vue';
     import DRadio from '@/components/DRadio.vue';
     import { 
@@ -40,11 +40,8 @@
 		} else if (i == 6) {
 			// 如果是自定义
 			useCus.value = true;
-			if (props.modelValue != 0) {
-				cusExpire.value = new Date(props.modelValue * 1000);
-			} else {
-				cusExpire.value = new Date();
-			}
+			// 如果前一个选项是自定义则需把时间更改为现在的时间
+			if (props.modelValue == 0) emit(~~(new Date().getTime() / 1000));
 		} else {
 			// 如果是预设
 			// opts 对应的天数
@@ -60,9 +57,16 @@
 		}
 	}
 
+	// 如果 cusExpire 更改则同步提交 (emit) 到 modelValue
 	watch(cusExpire, () => {
 		emit(~~(cusExpire.value.getTime() / 1000));
-	}, {immediate: false});
+	}, {
+		immediate: false
+	});
+	// 如果 modelValue 更新则同步更新 cusExpire
+	watchEffect(() => {
+		cusExpire.value = new Date(props.modelValue * 1000);
+	});
 </script>
 
 <template>
