@@ -11,10 +11,13 @@ class RecordController extends Controller {
 		$r = RecordModel::get_base_info_by_suffix($suffix);
 		// 是否存在
 		if (!$r) self::reject('链接不存在或已被封禁', 404);
-		// id&link&password
+		// id&link&password&expire
 		$id = $r['id'];
 		$link = self::add_http_protocol_header_if_not_exist($r['link']);
 		$real_password = $r['password'];
+		$expire = $r['expire'];
+		// 是否过期
+		if ($expire and time() > $expire) self::reject('链接已于 ' . $expire . ' 过期', 403);
 		// 判断密码是否正确
 		if ($real_password) {
 			// 如果存在密码
@@ -48,15 +51,18 @@ class RecordController extends Controller {
 		$suffix = $data['suffix'];
 		$link = $data['link'];
 		$password = $data['password'] ?? null;
+		$expire = $data['expire'] ?? null;
 		// 验证
 		self::verify_suffix($suffix);
 		self::verify_link($link);
 		self::verify_password($password);
+		self::verify_expire($expire);
+		// 是否套娃
 		if (stristr($link, '/' . $suffix)) self::reject('禁止套娃!', 400);
 		// 是否已存在同名后缀
 		if (RecordModel::get_id_by_suffix($suffix)) self::reject('已存在同名后缀, 换一个吧~', 409);
 		// 插入数据
-		RecordModel::insert($suffix, $link, $password, time(), IP);
+		RecordModel::insert($suffix, $link, $password, $expire, time(), IP);
 		// 返回结果
 		return self::resolve($suffix);
 	}

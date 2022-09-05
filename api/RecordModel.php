@@ -13,12 +13,13 @@ class RecordModel {
 	}
 
 	public static function get_base_info_by_suffix($suffix) {
-		$pp = DAO::new()->pp("SELECT `id`, `link`, `password` FROM `PRE_record` WHERE `suffix` = ? AND `ban` = 0;");
+		$pp = DAO::new()->pp("SELECT `id`, `link`, `password`, `expire` FROM `PRE_record` WHERE `suffix` = ? AND `ban` = 0;");
 		$pp->bv(1, $suffix);
 		$pp->exec();
 		$r = $pp->gd()[0];
 		if (!$r) return null;
 		$r['id'] = intval($r['id']);
+		$r['expire'] = intval($r['expire']);
 		return $r;
 	}
 
@@ -26,17 +27,18 @@ class RecordModel {
 		return DAO::new()->exec("UPDATE `PRE_record` SET `views` = `views` + 1 WHERE `id` = {$id};");
 	}
 
-	public static function insert($suffix, $link, $password, $time, $ip) :bool {
+	public static function insert($suffix, $link, $password, $expire, $time, $ip) :bool {
 		$d = DAO::new();
 		$pp = $d->pp("INSERT INTO `PRE_record` 
-			(`suffix`, `link`, `password`, `time`, `ip`) 
+			(`suffix`, `link`, `password`, `expire`, `time`, `ip`) 
 			VALUES 
-			(?, ?, ?, ?, ?);");
-		$pp->bv(1, $suffix);
-		$pp->bv(2, $link);
-		$pp->bv(3, $password);
-		$pp->bv(4, $time);
-		$pp->bv(5, $ip);
+			(:suffix, :link, :password, :expire, :time, :ip);");
+		$pp->bv(':suffix', $suffix);
+		$pp->bv(':link', $link);
+		$pp->bv(':password', $password);
+		$pp->bv(':expire', $expire);
+		$pp->bv(':time', $time);
+		$pp->bv(':ip', $ip);
 		return $pp->exec();
 	}
 }

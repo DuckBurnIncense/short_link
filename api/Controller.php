@@ -101,10 +101,21 @@ class Controller {
 	 * 验证访问密码是否合法
 	*/
 	protected static function verify_password($password) :bool {
+		if ($password == null) return true;
 		// 特殊字符
 		if (self::is_str_has_spec_char($password)) self::reject('访问密码不合法', 400);
 		// 长度
 		if (mb_strlen($password) > self::$PASSWORD_MAX_LETTERS) self::reject('访问密码过长', 400);
+		return true;
+	}
+	
+	/* 
+	 * @param string $expire 时间戳
+	 * 验证访问密码是否合法
+	*/
+	protected static function verify_expire($expire) :bool {
+		if ($expire == null) return true;
+		if ((!is_numeric($expire)) or (count(str_split($expire . '')) != 10)) self::reject('时间戳错误', 400);
 		return true;
 	}
 
