@@ -111,7 +111,7 @@ class Controller {
 	
 	/* 
 	 * @param string $expire 时间戳
-	 * 验证访问密码是否合法
+	 * 验证过期时间是否合法
 	*/
 	protected static function verify_expire($expire) :bool {
 		if (!$expire or $expire == 0) return true;
