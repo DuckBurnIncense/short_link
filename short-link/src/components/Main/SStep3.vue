@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, computed, watchEffect } from 'vue';
+    import { computed } from 'vue';
     import DStep from '@/components/DStep.vue';
     import DInput from '@/components/DInput.vue';
     import { 
@@ -8,30 +8,31 @@
     } from '@fortawesome/free-solid-svg-icons';
     import { isStringHasSpecialChars } from '@/hooks/regexr';
     
-    // 密码输入框的值
-    var value = ref(props.modelValue);
-
     // props
 	const props = defineProps({
-		modelValue: {
-			type: String,
+        modelValue: {
+            type: String,
 			required: 1
 		}
 	});
-
+    
     // emit
 	const $emit = defineEmits([
-		'update:modelValue'
+        'update:modelValue'
 	]);
+
+    // 密码输入框的值
+    const value = computed({
+        get() {
+            return props.modelValue
+        },
+        set(newValue) {
+            return $emit('update:modelValue', newValue);
+        }
+    });
 
     // 密码是否合法
     var isPasswordHasSpecialChars = computed(() => isStringHasSpecialChars(props.modelValue));
-
-    // 实时更新 modelValue 和 value
-    watchEffect(() => {
-        $emit('update:modelValue', value.value);
-        value.value = props.modelValue;
-    });
 </script>
 
 <template>

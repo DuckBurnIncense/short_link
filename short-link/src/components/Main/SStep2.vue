@@ -18,9 +18,18 @@
 		}
 	});
 
-	defineEmits([
+	const $emit = defineEmits([
 		'update:modelValue'
 	]);
+
+	const value = computed({
+        get() {
+            return props.modelValue
+        },
+        set(newValue) {
+            return $emit('update:modelValue', newValue);
+        }
+    });
 
     // 链接是否合法
     var isSuffixHasSpecialChars = computed(() => isStringHasSpecialChars(props.modelValue));
@@ -46,7 +55,7 @@
 		<template #heading>第二步</template>
 		<div class="step2">
 			<p>第二步: 设置短链接后缀</p>
-			<p>{{URL}} <DInput v-model="modelValue" @input="$emit('update:modelValue', $event.target.value)" placeholder="在此处设置短链接后缀" /></p>
+			<p>{{URL}} <DInput v-model="value" placeholder="在此处设置短链接后缀" /></p>
 			<p>
 				<small 
 					class="cur-pot t-underline" 
