@@ -1,5 +1,5 @@
 <script setup>
-    import { computed } from 'vue';
+    import { ref, computed, watchEffect } from 'vue';
     import DStep from '@/components/DStep.vue';
     import DInput from '@/components/DInput.vue';
     import { 
@@ -7,7 +7,11 @@
         faTriangleExclamation,
     } from '@fortawesome/free-solid-svg-icons';
     import { isStringHasSpecialChars } from '@/hooks/regexr';
+    
+    // 密码输入框的值
+    var value = ref(props.modelValue);
 
+    // props
 	const props = defineProps({
 		modelValue: {
 			type: String,
@@ -15,12 +19,19 @@
 		}
 	});
 
-	defineEmits([
+    // emit
+	const $emit = defineEmits([
 		'update:modelValue'
 	]);
 
     // 密码是否合法
     var isPasswordHasSpecialChars = computed(() => isStringHasSpecialChars(props.modelValue));
+
+    // 实时更新 modelValue 和 value
+    watchEffect(() => {
+        $emit('update:modelValue', value.value);
+        value.value = props.modelValue;
+    });
 </script>
 
 <template>
@@ -32,7 +43,7 @@
         <div class="step3">
             <p>第三步 (可选): 设置一个访问密码</p>
             <p>只有正确输入访问密码才能访问原始链接 (长链接)</p>
-            <p><DInput v-model="modelValue" placeholder="可在此处设置密码" :style="{width: '100%'}" /></p>
+            <p><DInput v-model="value" placeholder="可在此处设置密码" :style="{width: '100%'}" /></p>
             <small class="cl-red" v-show="isPasswordHasSpecialChars">
                 <font-awesome-icon :icon="faTriangleExclamation" />
                 密码中不能含有以下字符: 
