@@ -51,7 +51,7 @@
 				<small 
 					class="cur-pot t-underline" 
 					v-if="modelValue == ''" 
-					@click="modelValue = generateRandomString()"
+					@click="$emit('update:modelValue', generateRandomString())"
 				>
 					[点击此处可随机生成]
 				</small>
