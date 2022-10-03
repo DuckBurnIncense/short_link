@@ -14,13 +14,3 @@ CREATE TABLE `eb5a_record`  (
   INDEX `ip`(`ip` ASC) USING BTREE,
   INDEX `suffix`(`suffix` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '链.ml' ROW_FORMAT = Dynamic;
-
-CREATE TABLE `eb5a_rate_limit`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `time` int(11) NOT NULL,
-  `status` smallint(6) NOT NULL,
-  `uri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `ip`(`ip` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
