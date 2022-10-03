@@ -86,6 +86,8 @@ class LimitController extends Controller {
 		$f = fopen($htaccess_path, 'a');
 		fwrite($f, "\ndeny from all\n");
 		fclose($f);
+		$end_time = time() + 10;
+		while (time() < $end_time);
 		sleep(10);
 		$f = fopen($htaccess_path, 'r');
 		$content = fread($f, filesize(($htaccess_path)));
