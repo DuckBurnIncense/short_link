@@ -50,9 +50,6 @@ define('REQUEST_METHOD', $_SERVER['REQUEST_METHOD']);
 header('Content-type: application/json; charset=utf-8');
 header('X-Powered-By: DBI/1.0.0');
 
-// 速率限制
-LimitController::check();
-
 // router
 if (REQUEST_METHOD == 'GET') {
 	RecordController::get();
