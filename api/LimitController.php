@@ -50,6 +50,8 @@ class LimitController extends Controller {
 		$cf_zone_id = $c['cf_zone_id'];
 		// cf api header头的authorization字段
 		$cf_authorization = $c['cf_authorization'];
+		// .htaccess 文件位置
+		$urgent_mode_htaccess_path = $c['urgent_mode_htaccess_path'];
 		// 当前时间
 		$now_time = time();
 		// 一天内该ip的所有请求
@@ -73,9 +75,24 @@ class LimitController extends Controller {
 			// ban
 			self::ban_ip($ip, $cf_zone_id, $cf_authorization);
 			LimitModel::add_access_record($ip, $now_time, 403, URI);
+			if ($minute_count > $max_request_times_per_minute * 1.2) self::urgent_mode($urgent_mode_htaccess_path);
 			self::reject('访问过快, 疑似刷接口, IP喜提永封~', 403);
 		}
 		LimitModel::add_access_record($ip, $now_time, 200, URI);
 		return true;
+	}
+
+	public static function urgent_mode($htaccess_path) {
+		$f = fopen($htaccess_path, 'a');
+		fwrite($f, "\ndeny from all\n");
+		fclose($f);
+		sleep(10);
+		$f = fopen($htaccess_path, 'r');
+		$content = fread($f, filesize(($htaccess_path)));
+		$content = str_replace("deny from all", '', $content);
+		fclose($f);
+		$f = fopen($htaccess_path, 'w');
+		fwrite($f, $content);
+		fclose($f);
 	}
 }
