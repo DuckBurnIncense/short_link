@@ -25,22 +25,6 @@
 		6. `db` 为数据库名;
 		7. `table_prefix` 为数据表的前缀, 默认`eb5a`, 无需更改;
 		8. `ssl` 设置是否使用ssl加密连接数据库.
-	2. `limit` 下设置访问速率限制, 本程序采用数据库 + cloudflare形式, 比较耗费性能:
-		1. `enable` 为是否启用访问速率限制, 如果服务器已有访问速率限制程序保护 (如cloudflare), 则无需启用;
-		2. `max_request_times_per_day` 为每24小时单ip最大访问数;
-		3. `max_request_times_per_minute` 为每分钟单ip最大访问数;
-		4. `cf_zone_id` 为 cloudflare 的 `zone id`, 可在 cloudflare 的 `概述` 页右侧 `API` 标题下 `区域 ID` 找到;
-		5. `cf_authorization` 为 cloudflare api 的 `访问token`, 可在 https://dash.cloudflare.com/profile/api-tokens 创建, 创建方法为:
-			1. 点击 `创建令牌`;
-			2. `创建自定义令牌`;
-			3. `令牌名称` 自己取;
-			4. `权限` 选 `区域`, `区域 WAF`, `编辑`;
-			5. `区域资源` 选 `包括`, `特定区域`, `(你的网站域名)`;
-			6. `TTL` 选择当前日期到一年后 (一年后需要重新创建令牌替换当前令牌token, 为了安全方面考虑, 不建议设置太久);
-			7. 点击 `继续以显示摘要`;
-			8. 点击 `创建令牌`;
-			9. 获得令牌 Token, 在其前面添加 `Bearer `(<-这里有一个空格), 完成;
-			10. 示例值: `Bearer qWeRtYu1oP1AsD2F3G5Hz4-aSdF7HjKl1ZxCv3V5`.
 4. 将 `configuration_sample.php` 重命名为 `configuration.php`;
 5. 回到 `Release` 目录, 打开 `db` 文件夹
 6. 用 `navicat`, `phpmyadmin`, `mysql 命令行工具` 等工具连接到你的数据库, 并导入 `short_link.sql`;
@@ -69,8 +53,6 @@
 		Controller.php # 控制器, 储存公共方法
 		DAO.php # 连接数据库的类
 		index.php # 入口文件
-		LimitController.php # 访问速率限制的控制器
-		LimitModel.php # 访问速率限制的模型
 		RecordController.php # 控制短链接生成的控制器
 		RecordModel.php # 控制短链接生成的模型
 		Tools.php # 工具类
