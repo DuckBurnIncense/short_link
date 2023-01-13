@@ -75,7 +75,7 @@
         <template #icon>
             <font-awesome-icon :icon="faCalendarDays" />
         </template>
-        <template #heading>第四步</template>
+        <template #heading>设置一个过期时间 (可选)</template>
         <div class="step3">
             <p>第四步 (可选): 设置一个过期时间</p>
             <p>在过期时间到达后将不能从短链接访问原始链接 (长链接)</p>

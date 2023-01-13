@@ -30,7 +30,7 @@
         <template #icon>
             <font-awesome-icon :icon="faArrowUpRightFromSquare" />
         </template>
-        <template #heading>第六步</template>
+        <template #heading>得到缩短后的链接</template>
         <div class="step5">
             <p>第六步: 得到缩短后的链接</p>
             <p v-if="shortLink">
@@ -44,7 +44,7 @@
                 </small>
             </p>
             <p v-else>
-                生成后的链接将会显示在这里
+                不出意外的话生成后的链接将会显示在这里
             </p>
         </div>
     </DStep>

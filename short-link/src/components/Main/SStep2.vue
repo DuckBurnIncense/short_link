@@ -52,7 +52,7 @@
 		<template #icon>
 			<font-awesome-icon :icon="faCode" />
 		</template>
-		<template #heading>第二步</template>
+		<template #heading>设置短链接后缀</template>
 		<div class="step2">
 			<p>第二步: 设置短链接后缀</p>
 			<p>{{URL}} <DInput v-model="value" placeholder="在此处设置短链接后缀" /></p>

@@ -37,7 +37,7 @@
         <template #icon>
             <font-awesome-icon :icon="faLink" />
         </template>
-        <template #heading>第一步</template>
+        <template #heading>输入待缩短的链接</template>
         <div class="step1">
             <p>第一步: 输入待缩短的链接</p>
             <p><DInput v-model="value" placeholder="在此处输入长链接" :style="{width: '100%'}" /></p>

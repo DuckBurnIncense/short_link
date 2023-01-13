@@ -40,7 +40,7 @@
         <template #icon>
             <font-awesome-icon :icon="faKey" />
         </template>
-        <template #heading>第三步</template>
+        <template #heading>设置一个访问密码 (可选)</template>
         <div class="step3">
             <p>第三步 (可选): 设置一个访问密码</p>
             <p>只有正确输入访问密码才能访问原始链接 (长链接)</p>

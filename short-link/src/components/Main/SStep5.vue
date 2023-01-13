@@ -65,9 +65,9 @@
         <template #icon>
             <font-awesome-icon :icon="faCircleCheck" />
         </template>
-        <template #heading>第五步</template>
+        <template #heading>点击提交按钮</template>
         <div class="step4">
-            <p>第五步: 提交</p>
+            <p>第五步: 点击提交按钮</p>
             <p>
                 <DButton @click="submit()" :disabled="loading || illegal">{{loading ? '提交中' : '提交'}}</DButton>
             </p>
