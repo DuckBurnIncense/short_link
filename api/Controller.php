@@ -92,7 +92,12 @@ class Controller {
 		// 长度
 		$len = mb_strlen($link);
 		if ($len < 1 or $len > self::$LINK_MAX_LETTERS) self::reject('源链接过长', 400);
+		// "链接" 是否为链接
 		if (!preg_match($url_regexr, $link)) self::reject('源链接不合法', 400);
+		// 是否为禁止的域名
+		$link_domain = parse_url($link, PHP_URL_HOST); // 用户输入的链接的域名
+		$banned_domains = CONFIG['banned_domains']; // 禁止的域名的列表
+		if (in_array($link_domain, $banned_domains)) self::reject('你无法为该链接生成短链, 因为该链接的域名已被禁止!', 400);
 		return true;
 	}
 
