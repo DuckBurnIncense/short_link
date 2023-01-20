@@ -25,7 +25,7 @@
 		6. `db` 为数据库名;
 		7. `table_prefix` 为数据表的前缀, 默认`eb5a`, 无需更改;
 		8. `ssl` 设置是否使用ssl加密连接数据库.
-	2. `limit` 下设置禁止的域名 (即: 长链接的域名不能为这些). 主要用于防止套娃. 注意: 一定要把你自己网站的域名也加上!
+	2. `banned_domains` 下设置禁止的域名 (即: 长链接的域名不能为这些). 主要用于防止套娃. 注意: 一定要把你自己网站的域名也加上!
 4. 将 `configuration_sample.php` 重命名为 `configuration.php`;
 5. 回到 `Release` 目录, 打开 `db` 文件夹
 6. 用 `navicat`, `phpmyadmin`, `mysql 命令行工具` 等工具连接到你的数据库, 并导入 `short_link.sql`;
