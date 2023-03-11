@@ -34,13 +34,13 @@
 9. 将 `Release` 文件夹下的所有文件上传到你的服务器 (的 `htdocs` 文件夹);
 10. 访问你的网站, 完成!
 
-## 使用nginx
+## 使用Nginx
 
-如果你使用的是 nginx (而非 apache), 请在 `nginx.conf` 中这样配置:
+如果你使用的是 Nginx (而非 apache), 请在 `nginx.conf` 中这样配置:
 
 ```text
 location / {
-    try_files $uri $uri/ /api/index.php;
+    try_files $uri $uri/ /api/index.php?$query_string;
 }
 ```
 
